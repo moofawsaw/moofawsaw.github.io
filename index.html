@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com  -->
-<!--  Last Published: Tue Nov 13 2018 06:22:04 GMT+0000 (UTC)  -->
+<!--  Last Published: Tue Nov 13 2018 07:11:35 GMT+0000 (UTC)  -->
 <html data-wf-page="5be49d62dbcc0a0200cafe91" data-wf-site="5be49d61dbcc0a7f13cafe8c">
 <head>
   <meta charset="utf-8">
@@ -20,46 +20,128 @@
   <link href="images/porto32.png" rel="shortcut icon" type="image/x-icon">
   <link href="images/porto256.png" rel="apple-touch-icon">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
-  <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
   <style>
- .modal-container {
-     position: fixed;
-     left: 50%;
-     transform: translate(-50%, -200%);
-     width: 70%;
-     max-width: 400px;
-     transition: transform 200ms ease-out;
+.modal_content {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
 }
- .modal:before {
-     content: "";
-     position: fixed;
-     display: none;
-     left: 0;
-     top: 0;
-     height: 100%;
-     width: 100%;
-     background: rgba(255, 255, 255, 0.6);
+ .modal {
+  opacity: 0;
+  padding: 50px;
+  position: absolute;
+  z-index: 1100;
+  -webkit-transition: opacity 600ms linear 600ms;
+  -moz-transition: opacity 600ms linear 600ms;
+  -ms-transition: opacity 600ms linear 600ms;
+  -o-transition: opacity 600ms linear 600ms;
+  transition: opacity 600ms linear 600ms;
 }
- .modal:target:before {
-     display: block;
+.modal_overlay {
+  background: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  z-index: 900;
+  -webkit-transition: opacity 200ms linear;
+  -moz-transition: opacity 200ms linear;
+  -ms-transition: opacity 200ms linear;
+  -o-transition: opacity 200ms linear;
+  transition: opacity 200ms linear;
 }
- .modal:target .modal-container {
-     transform: translate(-50%, -50%);
-     top:50%;
+.display {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  opacity: 1;
+  visibility: visible;
 }
- .modal-container .close {
-     top: -3px;
-     position: absolute;
-     right: 30px;
-     text-decoration: none;
-     color: #FFF;
-     background: #ff6da2;
-     border-radius: 50px;
-     height: 20px;
-     width: 20px;
-     text-align: center;
-     line-height: 15px;
+/*.conceal {
+  visibility: visible;
+}*/
+.btn_container {
+  height: 100%;
+  text-align: center;
+}
+.btn_container:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0;
+}
+button.modal_close {
+  background: #363D4E;
+  border: none;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  color: #FFFFFF;
+  cursor: pointer;
+  outline: none;
+  width: 52px;
+  height: 52px;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  -webkit-transition: -webkit-transform 600ms;
+  -moz-transition: -moz-transform 600ms;
+  -ms-transition: -ms-transform 600ms;
+  -o-transition: -o-transform 600ms;
+  transition: transform 600ms;
+}
+button.modal_close:hover {
+  background: #3E465A;
+  -webkit-transform: rotate(360deg) scale(1.10);
+  -moz-transform: rotate(360deg) scale(1.10);
+  -ms-transform: rotate(360deg) scale(1.10);
+  -o-transform: rotate(360deg) scale(1.10);
+  transform: rotate(360deg) scale(1.10);
+  -webkit-transition: -webkit-transform 600ms;
+  -moz-transition: -moz-transform 600ms;
+  -ms-transition: -ms-transform 600ms;
+  -o-transition: -o-transform 600ms;
+  transition: transform 600ms;
+}
+button.modal_close span, span:before, span:after {
+  background: #FFFFFF;
+  content: '';
+  cursor: pointer;
+  display: block;
+  height: 2px;
+  position: absolute;
+  width: 20px;
+}
+button.modal_close span:first-child {
+  background: none;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+button.modal_close span:before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+button.modal_close span:after {
+  -webkit-transform: translateY(-2px) rotate(-45deg);
+  -moz-transform: translateY(-2px) rotate(-45deg);
+  -ms-transform: translateY(-2px) rotate(-45deg);
+  -o-transform: translateY(-2px) rotate(-45deg);
+  transform: translateY(-2px) rotate(-45deg);
+  top: 2px;
 }
 </style>
 </head>
@@ -72,7 +154,7 @@
       </div><a href="#" class="button w-button">LEARN MORE</a></div>
     <div id="w-node-b5d87d7d1952-00cafe91" class="div-block-5">
       <div class="minicaps">Clickable</div>
-      <h3 class="heading-7"><strong class="bold-text">Majesty Moving Co.</strong></h3><a href="#" class="lightbox-link w-inline-block w-lightbox"><img src="images/moving-truck1.png" width="660" srcset="images/moving-truck1-p-500.png 500w, images/moving-truck1-p-800.png 800w, images/moving-truck1.png 833w" sizes="(max-width: 479px) 440.46875px, (max-width: 767px) 93vw, 660px" alt="" class="image-11"><div class="div-block-14"></div><script type="application/json" class="w-json">{
+      <h3 class="heading-7"><strong class="bold-text">Majesty Moving Co.</strong></h3><a href="#" class="lightbox-link w-inline-block w-lightbox"><img src="images/moving-truck1.png" width="660" srcset="images/moving-truck1-p-500.png 500w, images/moving-truck1-p-800.png 800w, images/moving-truck1.png 833w" sizes="(max-width: 479px) 420.875px, (max-width: 767px) 91vw, 62vw" alt="" class="image-11"><div class="div-block-14"></div><script type="application/json" class="w-json">{
   "items": [
     {
       "type": "image",
@@ -322,51 +404,79 @@
     <div id="w-node-03639fe7823c-00cafe91" class="div-block-4"><img src="images/new-logo.svg" width="248" alt="" class="image-4">
       <h3 class="heading-6">coupons and deals </h3><a href="#" class="arrow-link">LEARN <strong class="arrow">›</strong></a></div>
     <div id="w-node-b89930cc3f1c-00cafe91" class="div-block">
-      <div class="caps">The Good Guys</div><a href="#" class="link">Download Script</a><img src="images/drawing1.svg" alt="" class="image-13">
-      <div class="w-embed"><input id="btnShow" type="button" value="Show PDF">
-        <div id="dialog" style="display: none">
-        </div>
-      </div>
-    </div>
+      <div class="caps">The Good Guys</div><a href="#" id="trigger" class="link">View Script</a><img src="images/drawing1.svg" alt="" class="image-13"></div>
     <div id="w-node-e9cc2819490c-00cafe91" class="div-block-8">
       <div class="div-block-9">
         <div class="caps">Portfolio::</div>
         <h3 class="heading-10">Kyle Underhill</h3>
         <div class="grey-text">A visual representation of my experience</div>
       </div>
-      <div class="w-embed"></div>
     </div>
     <div id="w-node-70ee4d112d8d-00cafe91" class="div-block-2"><img src="images/iPhone-Mock-nobg.png" srcset="images/iPhone-Mock-nobg-p-500.png 500w, images/iPhone-Mock-nobg-p-800.png 800w, images/iPhone-Mock-nobg.png 924w" sizes="(max-width: 767px) 150px, 200px" alt="" class="image-9">
       <h3 class="heading-4"><strong>Beat Cloud iOS</strong></h3><a href="#" class="arrow-link yellow">LEARN <strong class="arrow">›</strong></a></div>
   </div>
+  <div class="modal_overlay">
+    <div class="modal_info w-embed"><object data="https://uploads-ssl.webflow.com/5be49d61dbcc0a7f13cafe8c/5bea6a5fa5b4255e179bd63a_The%20Good%20Guys.pdf" type="application/pdf" width="100%" height="100%">
+  <p>Alternative text - include a link <a href="myfile.pdf">to the PDF!</a></p>
+</object></div>
+  </div>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="js/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" type="text/javascript"></script>
   <script>
-      $(function () {
-        var fileName = "Mudassar_Khan.pdf";
-        $("#btnShow").click(function () {
-            $("#dialog").dialog({
-                modal: true,
-                title: fileName,
-                width: 540,
-                height: 450,
-                buttons: {
-                    Close: function () {
-                        $(this).dialog('close');
-                    }
-                },
-                open: function () {
-                    var object = "<object data=\"{FileName}\" type=\"application/pdf\" width=\"500px\" height=\"300px\">";
-                    object += "If you are unable to view file, you can download from <a href = \"{FileName}\">here</a>";
-                    object += " or download <a target = \"_blank\" href = \"http://get.adobe.com/reader/\">Adobe PDF Reader</a> to view the file.";
-                    object += "</object>";
-                    object = object.replace(/{FileName}/g, "Files/" + fileName);
-                    $("#dialog").html(object);
-                }
-            });
-        });
+(function(){
+  var $content = $('.modal_info').detach();
+  $('#trigger').on('click', function(e){
+    modal.open({
+      content: $content,
+      width: ('100%'),
+      height: ('100%'),
     });
+    $content.addClass('modal_content');
+    $('.modal, .modal_overlay').addClass('display');
+    $('#trigger').addClass('load');
+  });
+}());
+var modal = (function(){
+  var $close = $('<button role="button" class="modal_close" title="Close"><span></span></button>');
+  var $content = $('<div class="modal_content"/>');
+  var $modal = $('<div class="modal"/>');
+  var $window = $(window);
+  $modal.append($content, $close);
+  $close.on('click', function(e){
+    $('.modal, .modal_overlay').addClass('conceal');
+    $('.modal, .modal_overlay').removeClass('display');
+    $('#trigger').removeClass('load');
+    e.preventDefault();
+    modal.close();
+  });
+  return {
+    center: function(){
+      var top = Math.max($window.height() - $modal.outerHeight(), 0) / 2;
+      var left = Math.max($window.width() - $modal.outerWidth(), 0) / 2;
+      $modal.css({
+        top: top + $window.scrollTop(),
+        left: left + $window.scrollLeft(),
+      });
+    },
+    open: function(settings){
+      $content.empty().append(settings.content);
+      $modal.css({
+        width: settings.width || 'auto',
+        height: settings.height || 'auto'
+      }).appendTo('body');
+      modal.center();
+      $(window).on('resize', modal.center);
+    },
+    close: function(){
+      $content.empty();
+      $modal.detach();
+      $(window).off('resize', modal.center);
+    }
+  };
+}()); 
 </script>
 </body>
 </html>
