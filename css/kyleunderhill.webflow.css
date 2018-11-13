@@ -232,6 +232,10 @@ a {
   color: #ffc80a;
 }
 
+.arrow-link.white-link {
+  color: #fff;
+}
+
 .minicaps {
   position: absolute;
   left: 30px;
@@ -682,6 +686,11 @@ a {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
