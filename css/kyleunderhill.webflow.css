@@ -20,7 +20,7 @@ a {
 }
 
 .grid {
-  max-width: 1200px;
+  max-width: 1280px;
   -webkit-align-content: start;
   -ms-flex-line-pack: start;
   align-content: start;
